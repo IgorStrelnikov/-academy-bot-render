@@ -1,18 +1,20 @@
 import asyncio
 import os
 from aiohttp import web
-from aiogram import Bot, Dispatcher, types
+from aiogram import Bot, Dispatcher
+from aiogram.enums import ParseMode
 from aiogram.webhook.aiohttp_server import SimpleRequestHandler, setup_application
+from aiogram.types import Message
 
 TOKEN = os.getenv("BOT_TOKEN")
 WEBHOOK_PATH = "/webhook"
 WEBHOOK_URL = f"https://academy-bot.onrender.com{WEBHOOK_PATH}"
 
-bot = Bot(token=TOKEN, parse_mode=types.ParseMode.HTML)
+bot = Bot(token=TOKEN, parse_mode=ParseMode.HTML)
 dp = Dispatcher()
 
 @dp.message()
-async def handle_message(message: types.Message):
+async def handle_message(message: Message):
     await message.answer("Бот успешно запущен через Webhook! 🚀")
 
 async def on_startup(app: web.Application):
